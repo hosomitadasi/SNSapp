@@ -12,7 +12,7 @@ class CommentController extends Controller
         // 今回は使用せず
     }
 
-    public function store(Request $request)
+    public function storeComment(Request $request)
     {
         // 投稿に対するコメント追加に使用予定
     }
@@ -22,13 +22,4 @@ class CommentController extends Controller
         // 今回は使用せず
     }
 
-    public function update(Request $request, string $id)
-    {
-        // 今回は使用せず
-    }
-
-    public function destroy(string $id)
-    {
-        // 今回は使用せず
-    }
 }

@@ -29,6 +29,8 @@ class PostController extends Controller
 
     public function destroyPost(string $id)
     {
-        // 投稿の削除に使用予定
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return response()->json(['message' => 'Post deleted successfully']);
     }
 }
