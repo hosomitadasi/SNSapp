@@ -10,11 +10,25 @@ class LikeController extends Controller
 
     public function storeLike(Request $request)
     {
-        // 投稿画面で「いいね」を追加するのに使用予定
+        $like = Like::firstOrCreate([
+            'user_id' => $request->user_id,
+            'post_id' => $request->post_id,
+        ]);
+
+        return response()->json([
+            'message' => 'いいねしました！',
+            'like' => $like
+        ], 201);
     }
 
-    public function destroyLike(string $id)
+    public function destroyLike(Request $request, string $postId)
     {
-        // 投稿画面で「いいね」を削除するのに使用予定
+        Like::where('post_id', $postId)
+            ->where('user_id', $request->user_id)
+            ->delete();
+
+        return response()->json([
+            'message' => 'いいねを削除しました！'
+        ]);
     }
 }

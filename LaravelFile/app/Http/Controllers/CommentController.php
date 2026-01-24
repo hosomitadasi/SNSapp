@@ -3,23 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comment;
+use App\Models\Post;
 
 class CommentController extends Controller
 {
 
-    public function index()
+    public function show(string $id)
     {
-        // 今回は使用せず
+        $post = Post::with(['user', 'comments.user'])->findOrFail($id);
+
+        return response()->json($post);
     }
 
     public function storeComment(Request $request)
     {
-        // 投稿に対するコメント追加に使用予定
-    }
+        $comment = Comment::create([
+            'user_id' => $request->user_id,
+            'post_id' => $request->post_id,
+            'content' => $request->content,
+        ]);
 
-    public function show(string $id)
-    {
-        // 今回は使用せず
+        return response()->json($comment, 201);
     }
 
 }
