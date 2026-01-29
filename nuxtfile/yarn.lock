@@ -2640,6 +2640,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vee-validate/i18n@npm:^4.15.1":
+  version: 4.15.1
+  resolution: "@vee-validate/i18n@npm:4.15.1"
+  checksum: 10c0/6073e245283d4eb4cc294f5f3e04664aee9dd292ec7ec4555df6267e3681a3fd71a1efb908ea205e4e593a8f38e85265d6d6cc1392f0ad9cebc4cc47df42811f
+  languageName: node
+  linkType: hard
+
 "@vee-validate/nuxt@npm:^4.15.1":
   version: 4.15.1
   resolution: "@vee-validate/nuxt@npm:4.15.1"
@@ -5805,6 +5812,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nuxtfile@workspace:."
   dependencies:
+    "@vee-validate/i18n": "npm:^4.15.1"
     "@vee-validate/nuxt": "npm:^4.15.1"
     "@vee-validate/rules": "npm:^4.15.1"
     firebase: "npm:^12.8.0"

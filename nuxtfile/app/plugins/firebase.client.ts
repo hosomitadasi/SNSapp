@@ -13,7 +13,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     appId: config.public.firebaseAppId,
     }
 
-  // Firebaseの初期化
     const app = initializeApp(firebaseConfig)
     const auth = getAuth(app)
 
