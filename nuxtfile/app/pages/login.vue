@@ -2,19 +2,19 @@
     <div class="auth-page">
     <AuthHeader />
     <main class="auth-container">
-        <div class="auth-box">
+        <div class="auth-box login-box">
         <h2 class="auth-title">ログイン</h2>
-        <VForm @submit="onLogin" v-slot="{ errors }">
+        <VForm @submit="onLogin" v-slot="{ errors }" class="form-content">
             <div class="input-group">
 
             <div class="input-group">
-            <VField name="メールアドレス" rules="required|email" as="input" type="email" placeholder="メールアドレス" />
-            <span class="error">{{ errors['メールアドレス'] }}</span>
+            <VField name="メールアドレス" rules="required|email" as="input" type="email" placeholder="メールアドレス" text-box />
+            <span class="error-msg">{{ errors['メールアドレス'] }}</span>
             </div>
 
             <div class="input-group">
-            <VField name="パスワード" rules="required|min:6" as="input" type="password" placeholder="パスワード" />
-            <span class="error">{{ errors['パスワード'] }}</span>
+            <VField name="パスワード" rules="required|min:6" as="input" type="password" placeholder="パスワード" text-box />
+            <span class="error-msg">{{ errors['パスワード'] }}</span>
             </div>
 
             <button type="submit" class="primary-btn">ログイン</button>
@@ -23,3 +23,84 @@
     </main>
     </div>
 </template>
+
+<style scoped>
+.auth-page {
+  width: 1025px;
+  min-height: 570px;
+  background-color: #15202B;
+  margin: 0 auto;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.auth-box {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.login-box {
+  width: 420px;
+  height: 240px;
+}
+
+.auth-title {
+  font-size: 16px;
+  color: #0E0E0E;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.input-group {
+  margin-bottom: 12px;
+  width: 320px;
+}
+
+.text-box {
+  width: 320px;
+  height: 45px;
+  border: 1px solid #5F5F5F;
+  border-radius: 10px;
+  padding: 0 15px;
+  font-size: 12px;
+  color: #000;
+}
+
+.text-box::placeholder {
+  color: #A4A4A4;
+}
+
+.primary-btn {
+  width: 106px;
+  height: 43px;
+  background-color: #5419DA;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 25px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.error-msg {
+  color: red;
+  font-size: 10px;
+  display: block;
+}
+</style>
