@@ -1,7 +1,7 @@
 <template>
     <header class="auth-header">
     <div class="logo">
-        <img src="/img/logo.png" alt="Share">
+        <img src="/img/logo.png" alt="Share" />
     </div>
     <nav class="nav-links">
         <NuxtLink to="/register" class="link-item">新規登録</NuxtLink>

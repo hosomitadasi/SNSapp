@@ -1,27 +1,40 @@
 <template>
-    <div class="auth-page">
-    <AuthHeader />
+  <div class="auth-page">
+    <AuthHeader></AuthHeader>
+
     <main class="auth-container">
-        <div class="auth-box login-box">
+      <div class="auth-box login-box">
         <h2 class="auth-title">ログイン</h2>
-        <VForm @submit="onLogin" v-slot="{ errors }" class="form-content">
-            <div class="input-group">
-
-            <div class="input-group">
-            <VField name="メールアドレス" rules="required|email" as="input" type="email" placeholder="メールアドレス" text-box />
+        <Form @submit="onLogin" v-slot="{ errors }" class="form-content">
+          <div class="input-group">
+            <Field
+              name="メールアドレス"
+              rules="required|email"
+              as="input"
+              type="email"
+              placeholder="メールアドレス"
+              class="text-box">
+            </Field>
             <span class="error-msg">{{ errors['メールアドレス'] }}</span>
-            </div>
+          </div>
 
-            <div class="input-group">
-            <VField name="パスワード" rules="required|min:6" as="input" type="password" placeholder="パスワード" text-box />
+          <div class="input-group">
+            <Field
+              name="パスワード"
+              rules="required|min:6"
+              as="input"
+              type="password"
+              placeholder="パスワード"
+              class="text-box">
+            </Field>
             <span class="error-msg">{{ errors['パスワード'] }}</span>
-            </div>
+          </div>
 
-            <button type="submit" class="primary-btn">ログイン</button>
-        </VForm>
-        </div>
+          <button type="submit" class="primary-btn">ログイン</button>
+        </Form>
+      </div>
     </main>
-    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -39,7 +52,7 @@ const onLogin = async (values: any) => {
     );
 
     const firebase_uid = userCredential.user.uid;
-    const user = await $fetch('http://localhost:8000/api/user', {
+    const user = await $fetch('http://localhost/api/user', {
       method: 'GET',
       params: { firebase_uid: firebase_uid } // クエリパラメータとして送信
     });
