@@ -6,11 +6,16 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 
-Route::get('/index', [PostController::class, 'indexPost']);
-Route::post('/index', [PostController::class, 'storePost']);
-Route::delete('/index/{id}', [PostController::class, 'destroyPost']);
+Route::post('/register', [App\Http\Controllers\UserController::class, 'store']);
 
-Route::post('/spots', [CommentController::class, 'storeComment']);
+Route::middleware(['api'])->group(function (){
+    Route::get('/user', [App\Http\Controllers\UserController::class, 'show']);
+    Route::get('/index', [PostController::class, 'indexPost']);
+    Route::post('/index', [PostController::class, 'storePost']);
+    Route::delete('/index/{id}', [PostController::class, 'destroyPost']);
 
-Route::post('/likes', [LikeController::class, 'storeLike']);
-Route::delete('/likes/{post_id}', [LikeController::class, 'destroyLike']);
+    Route::post('/comments', [CommentController::class, 'storeComment']);
+
+    Route::post('/likes', [LikeController::class, 'storeLike']);
+    Route::delete('/likes/{post_id}', [LikeController::class, 'destroyLike']);
+});

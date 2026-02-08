@@ -41,5 +41,11 @@ const submitPost = () => {
 </aside>
 </template>
 
+<script setup>
+definePageMeta({
+    middleware: 'auth'
+})
+</script>
+
 <style scoped>
 </style>

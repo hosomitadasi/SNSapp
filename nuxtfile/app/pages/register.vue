@@ -27,6 +27,29 @@
     </div>
 </template>
 
+<script lang="ts">
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+const { $auth } = useNuxtApp();
+const router = useRouter();
+
+const onLogin = async (values: any) => {
+  try {
+    await signInWithEmailAndPassword(
+      $auth,
+      values['メールアドレス'],
+      values['パスワード']
+    );
+
+    alert('ログインしました！');
+    router.push('/'); // ホーム画面へ遷移
+  } catch (error: any) {
+    console.error(error);
+    alert('ログインに失敗しました。メールアドレスまたはパスワードが違います。');
+  }
+};
+</script>
+
 <style scoped>
 .auth-page {
   width: 1025px;

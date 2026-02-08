@@ -24,6 +24,37 @@
     </div>
 </template>
 
+<script setup lang="ts">
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+const { $auth } = useNuxtApp();
+const router = useRouter();
+
+const onLogin = async (values: any) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      $auth,
+      values['メールアドレス'],
+      values['パスワード']
+    );
+
+    const firebase_uid = userCredential.user.uid;
+    const user = await $fetch('http://localhost:8000/api/user', {
+      method: 'GET',
+      params: { firebase_uid: firebase_uid } // クエリパラメータとして送信
+    });
+
+    console.log('Laravel側のユーザー情報:', user);
+    alert('ログイン成功！');
+    router.push('/');
+
+  } catch (error: any) {
+    console.error(error);
+    alert('ログインに失敗しました。');
+  }
+};
+</script>
+
 <style scoped>
 .auth-page {
   width: 1025px;
