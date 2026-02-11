@@ -1,54 +1,70 @@
-<template>
-    <div class="auth-page">
-    <AuthHeader />
-    <main class="auth-container">
-        <div class="auth-box register-box">
-        <h2 class="auth-title">新規登録</h2>
-        <VForm @submit="onRegister" v-slot="{ errors }" class="form-content">
-            <div class="input-group">
-            <VField name="ユーザーネーム" rules="required|max:20" as="input" placeholder="ユーザーネーム" class="text-box" />
-            <span class="error-msg">{{ errors['ユーザーネーム'] }}</span>
-            </div>
-
-            <div class="input-group">
-            <VField name="メールアドレス" rules="required|email" as="input" type="email" placeholder="メールアドレス" class="text-box" />
-            <span class="error-msg">{{ errors['メールアドレス'] }}</span>
-            </div>
-
-            <div class="input-group">
-            <VField name="パスワード" rules="required|min:6" as="input" type="password" placeholder="パスワード" class="text-box" />
-            <span class="error-msg">{{ errors['パスワード'] }}</span>
-            </div>
-
-            <button type="submit" class="primary-btn">新規登録</button>
-        </VForm>
-        </div>
-    </main>
-    </div>
-</template>
-
-<script lang="ts">
-import { signInWithEmailAndPassword } from 'firebase/auth';
+<script setup>
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const { $auth } = useNuxtApp();
 const router = useRouter();
+const authUser = useState('authUser');
 
-const onLogin = async (values: any) => {
+definePageMeta({
+  middleware: undefined
+})
+
+const onRegister = async (values) => {
   try {
-    await signInWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
       $auth,
       values['メールアドレス'],
       values['パスワード']
     );
 
-    alert('ログインしました！');
-    router.push('/'); // ホーム画面へ遷移
-  } catch (error: any) {
+    const userData = await $fetch('http://localhost/api/register', {
+      method: 'POST',
+      body: {
+        firebase_uid: userCredential.user.uid,
+        name: values['ユーザー名'],
+        email: values['メールアドレス'],
+      }
+    });
+
+    authUser.value = userData;
+    alert('会員登録が完了しました！');
+    router.push('/');
+
+  } catch (error) {
     console.error(error);
-    alert('ログインに失敗しました。メールアドレスまたはパスワードが違います。');
+    alert('登録に失敗しました。既に使われているメールアドレスかもしれません。');
   }
 };
 </script>
+
+<template>
+  <div class="auth-page">
+    <AuthHeader />
+    <main class="auth-container">
+      <div class="auth-box register-box">
+        <h2 class="auth-title">新規会員登録</h2>
+        <Form @submit="onRegister" v-slot="{ errors }" class="form-content">
+          <div class="input-group">
+            <Field name="ユーザー名" rules="required" as="input" placeholder="ユーザー名" class="text-box" />
+            <span class="error-msg">{{ errors['ユーザー名'] }}</span>
+          </div>
+
+          <div class="input-group">
+            <Field name="メールアドレス" rules="required|email" as="input" type="email" placeholder="メールアドレス" class="text-box" />
+            <span class="error-msg">{{ errors['メールアドレス'] }}</span>
+          </div>
+
+          <div class="input-group">
+            <Field name="パスワード" rules="required|min:6" as="input" type="password" placeholder="パスワード" class="text-box" />
+            <span class="error-msg">{{ errors['パスワード'] }}</span>
+          </div>
+
+          <button type="submit" class="primary-btn">登録する</button>
+        </Form>
+      </div>
+    </main>
+  </div>
+</template>
 
 <style scoped>
 .auth-page {

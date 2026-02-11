@@ -14,6 +14,7 @@ Route::middleware(['api'])->group(function (){
     Route::post('/index', [PostController::class, 'storePost']);
     Route::delete('/index/{id}', [PostController::class, 'destroyPost']);
 
+    Route::get('/comments/{id}', [CommentController::class, 'show']);
     Route::post('/comments', [CommentController::class, 'storeComment']);
 
     Route::post('/likes', [LikeController::class, 'storeLike']);
