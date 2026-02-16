@@ -2,8 +2,13 @@
 definePageMeta({
     middleware: 'auth'
 })
-const { data: posts, refresh: refreshPosts } = await useFetch('http://localhost/api/index')
+
 const authUser = useState('authUser')
+const { data: posts, refresh: refreshPosts } = await useFetch('http://localhost/api/index', {
+    params: { user_id: computed(() => authUser.value?.id) }, // computedでラップすると安全です
+    watch: [authUser] // authUserが変わったら再取得するようにする
+})
+
 </script>
 
 <template>

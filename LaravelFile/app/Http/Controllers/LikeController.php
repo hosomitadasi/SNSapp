@@ -7,28 +7,25 @@ use App\Models\Like;
 
 class LikeController extends Controller
 {
-
-    public function storeLike(Request $request)
+    public function toggleLike(Request $request)
     {
-        $like = Like::firstOrCreate([
-            'user_id' => $request->user_id,
-            'post_id' => $request->post_id,
-        ]);
+        $userId = $request->user_id;
+        $postId = $request->post_id;
 
-        return response()->json([
-            'message' => 'いいねしました！',
-            'like' => $like
-        ], 201);
-    }
+        $post = \App\Models\Post::find($postId);
+        if ($post->user_id == $userId) {
+            return response()->json(['message' => '自分の投稿にはいいねできません'], 400);
+        }
 
-    public function destroyLike(Request $request, string $postId)
-    {
-        Like::where('post_id', $postId)
-            ->where('user_id', $request->user_id)
-            ->delete();
+        $existingLike = Like::where('user_id', $userId)->where('post_id', $postId)->first();
 
-        return response()->json([
-            'message' => 'いいねを削除しました！'
-        ]);
+        if ($existingLike) {
+            $existingLike->delete();
+            return response()->json(['message' => 'いいねを解除しました', 'is_liked' => false]);
+        } else {
+            Like::create(['user_id' => $userId, 'post_id' => $postId]);
+            return response()->json(['message' => 'いいねしました', 'is_liked' => true]);
+        }
+
     }
 }
