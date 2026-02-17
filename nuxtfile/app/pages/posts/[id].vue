@@ -140,5 +140,9 @@ const submitComment = async () => {
   padding: 8px 25px;
   cursor: pointer;
   font-weight: bold;
+  border-top: 2px solid #A4A4A4;
+  border-left: 2px solid #A4A4A4;
+  border-bottom: 2px solid #000000;
+  transform: translateY(1px);
 }
 </style>

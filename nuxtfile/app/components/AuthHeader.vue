@@ -12,8 +12,8 @@
 
 <style scoped>
 .auth-header {
-    width: 1025px;
-    height: 133px;
+    width: 100%;
+    height: 150px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;

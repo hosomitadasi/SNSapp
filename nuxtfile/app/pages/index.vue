@@ -36,7 +36,7 @@ const { data: posts, refresh: refreshPosts } = await useFetch('http://localhost/
 <style scoped>
 .home-layout {
     display: flex;
-    width: 1025px;
+    width: 100%;
     margin: 0 auto;
     background-color: #15202B;
     min-height: 100vh;

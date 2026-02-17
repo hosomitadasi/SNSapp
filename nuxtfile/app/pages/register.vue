@@ -68,8 +68,8 @@ const onRegister = async (values) => {
 
 <style scoped>
 .auth-page {
-  width: 1025px;
-  min-height: 570px;
+  width: 100%;
+  min-height: 100vh;
   background-color: #15202B;
   margin: 0 auto;
 }
@@ -123,6 +123,7 @@ const onRegister = async (values) => {
   padding: 0 15px;
   font-size: 12px;
   color: #000;
+  box-sizing: border-box;
 }
 
 .text-box::placeholder {
@@ -139,6 +140,10 @@ const onRegister = async (values) => {
   font-size: 15px;
   cursor: pointer;
   margin-top: 10px;
+  border-top: 2px solid #A4A4A4;
+  border-left: 2px solid #A4A4A4;
+  border-bottom: 2px solid #000000;
+  transform: translateY(1px);
 }
 
 .error-msg {

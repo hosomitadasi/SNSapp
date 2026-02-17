@@ -125,6 +125,10 @@ const submitPost = async () => {
     cursor: pointer;
     font-weight: bold;
     transition: opacity 0.2s;
+    border-top: 2px solid #A4A4A4;
+    border-left: 2px solid #A4A4A4;
+    border-bottom: 2px solid #000000;
+    transform: translateY(1px);
 }
 .share-btn:hover {
     opacity: 0.8;
