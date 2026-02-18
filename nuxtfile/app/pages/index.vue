@@ -18,6 +18,9 @@ const { data: posts, refresh: refreshPosts } = await useFetch('http://localhost/
     </div>
 
     <main class="right-content">
+        <div class="page-header">
+        <h2 class="header-title">ホーム</h2>
+        </div>
         <div v-if="posts && posts.length > 0">
         <Message
             v-for="post in posts"
@@ -36,6 +39,7 @@ const { data: posts, refresh: refreshPosts } = await useFetch('http://localhost/
 <style scoped>
 .home-layout {
     display: flex;
+    align-items: flex-start;
     width: 100%;
     margin: 0 auto;
     background-color: #15202B;
@@ -43,12 +47,25 @@ const { data: posts, refresh: refreshPosts } = await useFetch('http://localhost/
 }
 .left-content {
     width: 300px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
 }
 .right-content {
     flex: 1;
-    border-left: 1px solid #38444D;
-    padding: 20px;
+    border-left: 1px solid #EEEEEE;
 }
+
+.page-header {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 15px 20px;
+}
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
 .no-posts {
     color: white;
     text-align: center;

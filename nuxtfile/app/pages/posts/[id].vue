@@ -47,7 +47,7 @@ const submitComment = async () => {
 
         <div class="comment-section">
           <div class="comment-label">コメント</div>
-          
+
           <div class="comments-list">
             <div v-for="comment in post.comments" :key="comment.id" class="comment-item">
               <div class="comment-user">{{ comment.user.name }}</div>
@@ -74,21 +74,26 @@ const submitComment = async () => {
 <style scoped>
 .home-layout {
   display: flex;
-  width: 1025px;
+  align-items: flex-start;
+  width: 100%;
   margin: 0 auto;
   background-color: #15202B;
   min-height: 100vh;
 }
 .left-content {
   width: 300px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
+
 .right-content {
   flex: 1;
-  border-left: 1px solid #38444D;
+  border-left: 1px solid #EEEEEE;
 }
 
 .page-header {
-  border-bottom: 1px solid #38444D;
+  border-bottom: 1px solid #EEEEEE;
   padding: 15px 20px;
 }
 .header-title {
@@ -97,18 +102,18 @@ const submitComment = async () => {
   color: white;
 }
 .comment-section {
-  border-bottom: 1px solid #38444D;
+  border-bottom: 1px solid #EEEEEE;
 }
 .comment-label {
   text-align: center;
   color: white;
   padding: 10px;
-  border-bottom: 1px solid #38444D;
+  border-bottom: 1px solid #EEEEEE;
   font-size: 14px;
 }
 .comment-item {
   padding: 15px 20px;
-  border-bottom: 1px solid #38444D;
+  border-bottom: 1px solid #EEEEEE;
 }
 .comment-user {
   font-weight: bold;
@@ -132,6 +137,12 @@ const submitComment = async () => {
   margin-bottom: 15px;
   box-sizing: border-box;
 }
+
+.btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .comment-btn {
   background-color: #5419DA;
   color: white;
