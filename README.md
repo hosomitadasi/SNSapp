@@ -59,8 +59,10 @@ README.md# SNSapp
 
 
 ## ER図
-![ER図](./img/SNSapp.dio)
-
+> [!TIP]
+> ER図の編集には `SNSapp.dio` ファイルを使用してください。
+> 表示（画像）:
+![ER図](./img/SNSapp.png)
 
 ## 環境構築
 前提条件：以下のツールがインストールされていることを確認してください。
