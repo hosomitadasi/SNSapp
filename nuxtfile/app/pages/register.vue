@@ -42,11 +42,11 @@ const onRegister = async (values) => {
     <AuthHeader />
     <main class="auth-container">
       <div class="auth-box register-box">
-        <h2 class="auth-title">新規会員登録</h2>
+        <h2 class="auth-title">新規登録</h2>
         <Form @submit="onRegister" v-slot="{ errors }" class="form-content">
           <div class="input-group">
-            <Field name="ユーザー名" rules="required" as="input" placeholder="ユーザー名" class="text-box" />
-            <span class="error-msg">{{ errors['ユーザー名'] }}</span>
+            <Field name="ユーザーネーム" rules="required" as="input" placeholder="ユーザーネーム" class="text-box" />
+            <span class="error-msg">{{ errors['ユーザーネーム'] }}</span>
           </div>
 
           <div class="input-group">
@@ -59,7 +59,7 @@ const onRegister = async (values) => {
             <span class="error-msg">{{ errors['パスワード'] }}</span>
           </div>
 
-          <button type="submit" class="primary-btn">登録する</button>
+          <button type="submit" class="primary-btn">新規登録</button>
         </Form>
       </div>
     </main>
