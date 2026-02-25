@@ -60,7 +60,7 @@ README.md# SNSapp
 
 ## ER図
 > [!TIP]
-> ER図の編集には `SNSapp.dio` ファイルを使用してください。
+> ER図の編集には `SNSapp.drawio` ファイルを使用してください。
 > 表示（画像）:
 ![ER図](./img/SNSapp.png)
 
