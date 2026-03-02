@@ -21,7 +21,7 @@ const onRegister = async (values) => {
       method: 'POST',
       body: {
         firebase_uid: userCredential.user.uid,
-        name: values['ユーザー名'],
+        name: values['ユーザーネーム'],
         email: values['メールアドレス'],
       }
     });

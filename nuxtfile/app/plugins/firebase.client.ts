@@ -19,14 +19,12 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            // Firebaseにはログインしているが、Nuxtの状態が空の場合
             if (!authUser.value) {
                 try {
-                    // FirebaseのUIDを使って、Laravelからユーザー情報を取得（IDを復元）
                     const data: any = await $fetch('http://localhost/api/user', {
-                        params: { email: user.email }
+                        params: { firebase_uid: user.uid }
                     })
-                    authUser.value = data // Laravel側のIDを含むユーザー情報をセット
+                    authUser.value = data
                 } catch (e) {
                     console.error('ユーザー情報の復元に失敗しました')
                     authUser.value = null
