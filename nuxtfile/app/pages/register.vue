@@ -4,12 +4,14 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 const { $auth } = useNuxtApp();
 const router = useRouter();
 const authUser = useState('authUser');
+const errorMessage = ref('');
 
 definePageMeta({
   middleware: undefined
 })
 
 const onRegister = async (values) => {
+  errorMessage.value = '';
   try {
     const userCredential = await createUserWithEmailAndPassword(
       $auth,
@@ -27,7 +29,6 @@ const onRegister = async (values) => {
     });
 
     authUser.value = userData;
-    alert('会員登録が完了しました！');
     router.push('/');
 
   } catch (error) {
@@ -44,8 +45,9 @@ const onRegister = async (values) => {
       <div class="auth-box register-box">
         <h2 class="auth-title">新規登録</h2>
         <Form @submit="onRegister" v-slot="{ errors }" class="form-content">
+          <p v-if="errorMessage" class="top-error">{{ errorMessage }}</p>
           <div class="input-group">
-            <Field name="ユーザーネーム" rules="required" as="input" placeholder="ユーザーネーム" class="text-box" />
+            <Field name="ユーザーネーム" :rules="{ required: true, max: 20 }" as="input" placeholder="ユーザーネーム" class="text-box" />
             <span class="error-msg">{{ errors['ユーザーネーム'] }}</span>
           </div>
 
@@ -55,7 +57,7 @@ const onRegister = async (values) => {
           </div>
 
           <div class="input-group">
-            <Field name="パスワード" rules="required|min:6" as="input" type="password" placeholder="パスワード" class="text-box" />
+            <Field name="パスワード" :rules="{ required: true, min: 6 }" as="input" type="password" placeholder="パスワード" class="text-box" />
             <span class="error-msg">{{ errors['パスワード'] }}</span>
           </div>
 

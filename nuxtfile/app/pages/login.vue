@@ -4,8 +4,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 const { $auth } = useNuxtApp();
 const router = useRouter();
 const authUser = useState('authUser')
+const errorMessage = ref('');
 
 const onLogin = async (values: any) => {
+  errorMessage.value = '';
   try {
     const userCredential = await signInWithEmailAndPassword(
       $auth,
@@ -21,12 +23,10 @@ const onLogin = async (values: any) => {
 
     console.log('Laravel側のユーザー情報:', user);
     authUser.value = user;
-    alert('ログイン成功！');
     router.push('/');
 
   } catch (error: any) {
-    console.error(error);
-    alert('ログインに失敗しました。');
+    errorMessage.value = 'ログインに失敗しました。メールアドレスまたはパスワードが違います。';
   }
 };
 </script>
@@ -39,6 +39,7 @@ const onLogin = async (values: any) => {
       <div class="auth-box login-box">
         <h2 class="auth-title">ログイン</h2>
         <Form @submit="onLogin" v-slot="{ errors }" class="form-content">
+        <p v-if="errorMessage" class="top-error">{{ errorMessage }}</p>
           <div class="input-group">
             <Field
               name="メールアドレス"
@@ -54,7 +55,7 @@ const onLogin = async (values: any) => {
           <div class="input-group">
             <Field
               name="パスワード"
-              rules="required|min:6"
+              :rules="{ required: true, min: 6 }"
               as="input"
               type="password"
               placeholder="パスワード"
@@ -147,6 +148,13 @@ const onLogin = async (values: any) => {
   border-left: 2px solid #A4A4A4;
   border-bottom: 2px solid #000000;
   transform: translateY(1px);
+}
+
+.top-error {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .error-msg {

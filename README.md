@@ -46,7 +46,9 @@ README.md# SNSapp
 
 ## 使用技術（実行環境）
 
-- 例）　Laravel　8.x（言語やフレームワーク、バージョンなどが記載されていると良い）
+- Laravel
+- PHP
+- 
 
 - nuxt 4.2.2
 - vee-validate 4.15.1
