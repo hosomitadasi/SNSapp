@@ -8,7 +8,10 @@ const postId = route.params.id
 const authUser = useState<any>('authUser')
 const commentContent = ref('')
 
-const { data: post, refresh: refreshPost } = await useFetch(`http://localhost/api/comments/${postId}`)
+const { data: post, refresh: refreshPost } = await useFetch(`http://localhost/api/comments/${postId}`, {
+    params: { user_id: computed(() => authUser.value?.id) },
+    watch: [authUser]
+})
 
 const submitComment = async () => {
     if (!commentContent.value) return alert('コメントを入力してください')
@@ -23,8 +26,8 @@ const submitComment = async () => {
                 content: commentContent.value
             }
         })
-        commentContent.value = '' // 入力欄をクリア
-        refreshPost() // 一覧を再取得して反映
+        commentContent.value = ''
+        refreshPost()
     } catch (e) {
         alert('コメントの投稿に失敗しました')
     }
@@ -55,16 +58,23 @@ const submitComment = async () => {
             </div>
           </div>
 
-          <form @submit.prevent="submitComment" class="comment-form">
-            <input
+          <Form @submit="submitComment" v-slot="{ errors }" class="comment-form">
+            <Field
+              name="コメント"
+              :rules="{ required: true, max: 120 }"
               v-model="commentContent"
-              class="comment-input"
+              as="input"
               type="text"
+              class="comment-input"
             />
+            <span class="error-msg" v-if="errors['コメント']">
+              {{ errors['コメント'] }}
+            </span>
+
             <div class="btn-wrapper">
               <button type="submit" class="comment-btn">コメント</button>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </main>
@@ -156,4 +166,12 @@ const submitComment = async () => {
   border-bottom: 2px solid #000000;
   transform: translateY(1px);
 }
+
+.error-msg {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-bottom: 10px;
+  display: block;
+}
+
 </style>

@@ -9,9 +9,16 @@ use App\Models\Post;
 class CommentController extends Controller
 {
 
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        $post = Post::with(['user', 'comments.user'])->findOrFail($id);
+        $post = Post::with(['user', 'comments.user'])
+            ->withCount('likes')
+            ->findOrFail($id);
+
+        $userId = $request->query('user_id');
+        $post->is_liked = $userId
+            ? $post->likes()->where('user_id', $userId)->exists()
+            : false;
 
         return response()->json($post);
     }

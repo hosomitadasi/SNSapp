@@ -26,14 +26,14 @@ const submitPost = async () => {
     await $fetch('http://localhost/api/index', {
         method: 'POST',
         body: {
-        user_id: authUser.value.id, // Laravel側のID
+        user_id: authUser.value.id,
         content: content.value
         }
     })
     content.value = ''
     emit('post-success')
     } catch (e) {
-    alert('投稿に失敗しました')
+    alert('通信エラーが発生しました')
     }
 }
 </script>
@@ -57,16 +57,23 @@ const submitPost = async () => {
 
         <div class="post-form-area">
         <p class="share-label">シェア</p>
-        <form @submit.prevent="submitPost" class="post-form">
-            <textarea
-            v-model="content"
-            class="post-textarea"
-            rows="5"
-            ></textarea>
+        <Form @submit="submitPost" v-slot="{ errors }" class="post-form">
+            <Field
+                name="投稿"
+                :rules="{ required: true, max: 120 }"
+                v-model="content"
+                as="textarea"
+                class="post-textarea"
+                rows="5"
+            />
+            <span class="error-msg" v-if="errors['投稿']">
+                {{ errors['投稿'] }}
+            </span>
+
             <div class="btn-wrapper">
             <button type="submit" class="share-btn">シェアする</button>
             </div>
-        </form>
+        </Form>
         </div>
     </div>
     </aside>
@@ -132,5 +139,12 @@ const submitPost = async () => {
 }
 .share-btn:hover {
     opacity: 0.8;
+}
+
+.error-msg {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
 }
 </style>
