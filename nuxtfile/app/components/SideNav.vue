@@ -16,8 +16,7 @@ const logout = async () => {
     }
 }
 
-const submitPost = async () => {
-    if (!content.value) return alert('内容を入力してください')
+const submitPost = async (values: any, { resetForm }: any) => {
     if (!authUser.value || !authUser.value.id) {
         return alert('ユーザー情報の取得に失敗しました。再ログインしてください。')
     }
@@ -30,7 +29,7 @@ const submitPost = async () => {
         content: content.value
         }
     })
-    content.value = ''
+    resetForm();
     emit('post-success')
     } catch (e) {
     alert('通信エラーが発生しました')

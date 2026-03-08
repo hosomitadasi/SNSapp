@@ -13,8 +13,7 @@ const { data: post, refresh: refreshPost } = await useFetch(`http://localhost/ap
     watch: [authUser]
 })
 
-const submitComment = async () => {
-    if (!commentContent.value) return alert('コメントを入力してください')
+const submitComment = async (values: any, { resetForm }: any) => {
     if (!authUser.value) return alert('ログインが必要です')
 
     try {
@@ -26,7 +25,7 @@ const submitComment = async () => {
                 content: commentContent.value
             }
         })
-        commentContent.value = ''
+        resetForm();
         refreshPost()
     } catch (e) {
         alert('コメントの投稿に失敗しました')
@@ -66,6 +65,7 @@ const submitComment = async () => {
               as="input"
               type="text"
               class="comment-input"
+              placeholder="コメントを入力（120文字以内）"
             />
             <span class="error-msg" v-if="errors['コメント']">
               {{ errors['コメント'] }}
